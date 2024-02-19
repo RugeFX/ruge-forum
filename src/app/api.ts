@@ -14,7 +14,9 @@ export const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 5 });
+const baseQueryWithRetry = retry(baseQuery, {
+  retryCondition: (error) => error.status !== 400,
+});
 
 export const api = createApi({
   reducerPath: 'splitApi',

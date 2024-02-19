@@ -1,10 +1,16 @@
-import type { Config } from 'tailwindcss';
-import tailwindAnimate from 'tailwindcss-animate';
+import type { Config } from "tailwindcss";
+import tailwindAnimate from "tailwindcss-animate";
+import tailwindScrollbar from "tailwind-scrollbar";
+import tailwindTypography from "@tailwindcss/typography";
 
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        cursive: ["Pacifico", "cursive"]
+      }
+    }
   },
-  plugins: [tailwindAnimate],
+  plugins: [tailwindAnimate, tailwindScrollbar, tailwindTypography]
 } satisfies Config;

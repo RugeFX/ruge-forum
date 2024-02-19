@@ -16,13 +16,26 @@ module.exports = {
   },
   plugins: ["react-refresh", "@typescript-eslint"],
   rules: {
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true }
-    ],
+    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
-    "no-param-reassign": "off",
-    "max-len": "off"
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        required: {
+          some: ["nesting", "id"]
+        }
+      }
+    ],
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
+        required: {
+          some: ["nesting", "id"]
+        }
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off"
   }
 };

@@ -1,16 +1,13 @@
 import { PayloadAction, createSlice, isAnyOf } from '@reduxjs/toolkit';
-import type { User } from 'types/user';
 import { startAppListening } from 'app/listener-middleware';
 // eslint-disable-next-line import/no-cycle
 import authApi from './auth-api';
 
 export interface AuthSliceState {
-  userInfo: User | null;
   userToken: string | null;
 }
 
 const initialState: AuthSliceState = {
-  userInfo: null,
   userToken: localStorage.getItem('user-token') || null,
 };
 
@@ -19,11 +16,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.userInfo = null;
       state.userToken = null;
-    },
-    setUserInfo: (state, action: PayloadAction<User | null>) => {
-      state.userInfo = action.payload;
     },
     setUserToken: (state, action: PayloadAction<string | null>) => {
       state.userToken = action.payload;
@@ -49,11 +42,10 @@ const authSlice = createSlice({
   },
   selectors: {
     selectToken: (state) => state.userToken,
-    selectUserInfo: (state) => state.userInfo,
   },
 });
 
-export const { setUserInfo, setUserToken, logout } = authSlice.actions;
+export const { setUserToken, logout } = authSlice.actions;
 
 startAppListening({
   matcher: isAnyOf(setUserToken, logout),
@@ -69,5 +61,5 @@ startAppListening({
   },
 });
 
-export const { selectToken, selectUserInfo } = authSlice.selectors;
+export const { selectToken } = authSlice.selectors;
 export default authSlice;

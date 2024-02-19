@@ -9,6 +9,7 @@ import { logout } from 'features/auth/auth-slice';
 import { useCreateThreadMutation } from 'features/thread/thread-api';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import LoadingBar, { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { Output, object, string } from 'valibot';
 
 const formSchema = object({
@@ -19,7 +20,7 @@ const formSchema = object({
 type FormSchema = Output<typeof formSchema>;
 
 function App() {
-  const { userInfo, userToken } = useAppSelector((state) => state.auth);
+  const { userToken } = useAppSelector((state) => state.auth);
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
 
@@ -50,55 +51,65 @@ function App() {
   });
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+    dispatch(showLoading());
+    console.log(data);
     await new Promise((res) => {
       setTimeout(res, 2000);
     });
-    console.log(data);
-
     await createThread(data);
-
     reset();
+    dispatch(hideLoading());
   };
 
   return (
-    <main className="bg-black text-white min-h-screen">
-      <h1 className="text-3xl text-amber-500 font-bold">
-        {userToken !== null ? userInfo?.name : 'Login'}
-      </h1>
-      {userToken ? (
-        <button
-          type="button"
-          onClick={onLogout}
-          className="border p-2"
-          disabled={isLoading}
-        >
-          Logout
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={onLogin}
-          className="border p-2"
-          disabled={isLoading}
-        >
-          Login
-        </button>
-      )}
-      <section className="mx-auto max-w-screen-lg">
-        <ThreadsList />
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-          <input {...register('title')} className="w-full text-black" />
-          <textarea {...register('body')} className="w-full text-black" />
+    <>
+      <nav className="fixed top-0 w-full bg-zinc-600">
+        <h1 className="text-3xl text-amber-500 font-bold">
+          {userToken !== null ? userInfo?.name : 'Login'}
+        </h1>
+        {userToken ? (
           <button
-            type="submit"
-            className="bg-white text-black mt-4 w-full p-3 rounded-md disabled:opacity-65"
-            disabled={isSubmitting}
+            type="button"
+            onClick={onLogout}
+            className="border p-2"
+            disabled={isLoading}
           >
-            Create Thread
+            Logout
           </button>
-        </form>
-      </section>
-    </main>
+        ) : (
+          <button
+            type="button"
+            onClick={onLogin}
+            className="border p-2"
+            disabled={isLoading}
+          >
+            Login
+          </button>
+        )}
+        <LoadingBar
+          style={{ backgroundColor: 'rgb(251 191 36 / var(--tw-bg-opacity))' }}
+        />
+      </nav>
+      <main className="mt-[4.5rem] bg-black text-white min-h-screen">
+        <section className="mx-auto max-w-screen-lg">
+          <ThreadsList />
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-2"
+          >
+            <input {...register('title')} className="w-full text-black" />
+            <textarea {...register('body')} className="w-full text-black" />
+            <button
+              type="submit"
+              className="bg-white text-black mt-4 w-full p-3 rounded-md disabled:opacity-65"
+              disabled={isSubmitting}
+            >
+              Create Thread
+            </button>
+          </form>
+        </section>
+      </main>
+    </>
   );
 }
 

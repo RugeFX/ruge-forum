@@ -4,9 +4,15 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import authApi from 'features/auth/auth-api';
 import authSlice from 'features/auth/auth-slice';
 import threadApi from 'features/thread/thread-api';
+import {
+  loadingBarMiddleware,
+  loadingBarReducer,
+} from 'react-redux-loading-bar';
 import { listenerMiddleware } from './listener-middleware';
 
-const rootReducer = combineSlices(authSlice, authApi, threadApi);
+const rootReducer = combineSlices(authSlice, authApi, threadApi, {
+  loadingBar: loadingBarReducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -17,6 +23,9 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
       authApi.middleware,
       threadApi.middleware,
       listenerMiddleware.middleware,
+      loadingBarMiddleware({
+        promiseTypeSuffixes: ['pending', 'fulfilled', 'rejected'],
+      }),
     ),
     preloadedState,
   });
