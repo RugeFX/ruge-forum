@@ -108,7 +108,7 @@ export default function CommentVote({ threadId, comment }: CommentVoteProps) {
       <button
         type="button"
         onClick={downVoteHandler}
-        className={`flex gap-1 p-1 hover:bg-emerald-950 ${alreadyDownVoted ? 'text-emerald-400 bg-emerald-950' : 'text-zinc-300'} rounded-md transition-all`}
+        className={`flex gap-1 p-1 hover:bg-red-950 ${alreadyDownVoted ? 'text-red-200 bg-red-950' : 'text-zinc-300'} rounded-md transition-all`}
       >
         <CaretDownIcon className="size-5" />
         <span className="text-sm">{comment.downVotesBy.length}</span>
