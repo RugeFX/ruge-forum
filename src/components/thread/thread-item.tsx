@@ -1,10 +1,12 @@
-import { ChatBubbleIcon, ThickArrowDownIcon, ThickArrowUpIcon } from '@radix-ui/react-icons';
+import { ChatBubbleIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
-import * as Avatar from '@radix-ui/react-avatar';
 import parse from 'html-react-parser';
-import type { Thread } from 'types/thread';
-import { useFetchUsersQuery } from 'features/auth/auth-api';
 import { formatDiff } from 'utils';
+import { useFetchUsersQuery } from 'features/auth/auth-api';
+import type { Thread } from 'types/thread';
+import Avatar from 'components/avatar';
+import { useMemo } from 'react';
+import VoteButtons from './vote-buttons';
 
 interface ThreadItemProps {
   thread: Thread;
@@ -12,7 +14,10 @@ interface ThreadItemProps {
 
 export default function ThreadItem({ thread }: ThreadItemProps) {
   const { data: users } = useFetchUsersQuery();
-  const owner = (users?.data.users ?? []).find((user) => user.id === thread.ownerId);
+  const owner = useMemo(
+    () => (users?.users ?? []).find((user) => user.id === thread.ownerId),
+    [users, thread],
+  );
 
   return (
     <article
@@ -21,36 +26,17 @@ export default function ThreadItem({ thread }: ThreadItemProps) {
     >
       <div className="flex w-full p-3">
         <div className="flex flex-col items-center">
-          <Avatar.Root className="mb-2 bg-white inline-flex h-10 w-10 select-none items-center justify-center overflow-hidden rounded-full align-middle">
-            <Avatar.Image
-              className="h-full w-full rounded-[inherit] object-cover"
-              src={owner?.avatar}
-              alt={`${owner?.name}'s Profile Picture`}
-            />
-            <Avatar.Fallback
-              className="text-violet11 leading-1 flex h-full w-full items-center justify-center bg-white text-[15px] font-medium"
-              delayMs={600}
-            >
-              {owner?.name
-                .split(' ')
-                .map((string) => string[0])
-                .join('') || 'UN'}
-            </Avatar.Fallback>
-          </Avatar.Root>
-          <button type="button" className="group p-1 hover:bg-zinc-800 rounded-full">
-            <span className="sr-only">Upvote</span>
-            <ThickArrowUpIcon className="w-5 h-5 group-hover:text-emerald-400 transition-colors" />
-          </button>
-          <span className="text-center font-semibold">
-            {thread.upVotesBy.length - thread.downVotesBy.length}
-          </span>
-          <button type="button" className="group p-1 hover:bg-zinc-800 rounded-full">
-            <span className="sr-only">Downvote</span>
-            <ThickArrowDownIcon className="w-5 h-5 group-hover:text-red-400 transition-colors" />
-          </button>
+          <Avatar className="mb-2" user={owner} />
+          <VoteButtons id={thread.id} />
         </div>
         <div className="ml-5 space-y-2">
-          <span className="text-sm text-zinc-300">{owner?.name}</span>
+          <div className="flex flex-col sm:flex-row gap-x-4 sm:items-center text-sm">
+            <span className="block text-zinc-300">{owner?.name}</span>
+            <span className="block w-max px-2 text-emerald-200 bg-emerald-950 hover:bg-emerald-900 rounded-md select-none transition-colors">
+              #
+              {thread.category}
+            </span>
+          </div>
           <Link
             to={`/details/${thread.id}`}
             className="underline-offset-2 hover:underline hover:text-emerald-400 transition-colors"
@@ -62,14 +48,14 @@ export default function ThreadItem({ thread }: ThreadItemProps) {
       </div>
       <div className="w-full flex justify-between items-center">
         <p className="pl-5 text-sm text-zinc-300">{formatDiff(thread.createdAt)}</p>
-        <button
-          type="button"
+        <Link
+          to={`/details/${thread.id}#comments`}
           className="flex items-center gap-2 p-3 hover:bg-zinc-800 transition-colors"
         >
           <ChatBubbleIcon className="w-5 h-5" />
           {`${thread.totalComments} `}
           <span className="hidden sm:block">Comments</span>
-        </button>
+        </Link>
       </div>
     </article>
   );

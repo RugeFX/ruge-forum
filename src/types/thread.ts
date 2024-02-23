@@ -21,6 +21,20 @@ export interface Comment {
   downVotesBy: string[];
 }
 
+export interface Vote {
+  id: string;
+  userId: string;
+  threadId: string;
+  voteType: number;
+}
+
+export interface VoteComment {
+  id: string;
+  userId: string;
+  commentId: string;
+  voteType: number;
+}
+
 export interface ThreadDetails {
   id: string;
   title: string;

@@ -1,3 +1,6 @@
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
 export function formatDiff(dateString: string) {
   const now = new Date();
   const posted = new Date(dateString);
@@ -20,4 +23,8 @@ export function formatDiff(dateString: string) {
     return `${diffSeconds} seconds ago`;
   }
   return 'Just now';
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }

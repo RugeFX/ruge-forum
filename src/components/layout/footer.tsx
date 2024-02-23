@@ -2,7 +2,7 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons';
 
 export default function Footer() {
   return (
-    <footer className="flex justify-between items-center border-t border-t-zinc-700 p-5">
+    <footer className="flex z-10 bg-black justify-between items-center border-t border-t-zinc-700 p-5">
       <p>
         Made with
         {' '}

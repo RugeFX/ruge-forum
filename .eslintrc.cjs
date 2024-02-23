@@ -19,6 +19,8 @@ module.exports = {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
@@ -35,7 +37,6 @@ module.exports = {
         }
       }
     ],
-    "import/prefer-default-export": "off",
     "no-param-reassign": "off"
   }
 };

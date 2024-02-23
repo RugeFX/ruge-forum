@@ -23,22 +23,12 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addMatcher(authApi.endpoints.login.matchPending, (_, action) => {
-        // TODO: loading bar
-        console.log('pending', action);
-      })
-      .addMatcher(authApi.endpoints.login.matchRejected, (_, action) => {
-        // TODO: end loading bar
-        console.log('rejected', action);
-      })
-      .addMatcher(
-        authApi.endpoints.fetchUserInfo.matchRejected,
-        () => initialState,
-      )
-      .addMatcher(authApi.endpoints.fetchUserInfo.matchPending, (_, action) => {
-        console.log('pending', action);
-      });
+    builder.addMatcher(authApi.endpoints.fetchUserInfo.matchRejected, (state, { payload }) => {
+      if (payload?.status === 401) {
+        return initialState;
+      }
+      return state;
+    });
   },
   selectors: {
     selectToken: (state) => state.userToken,
