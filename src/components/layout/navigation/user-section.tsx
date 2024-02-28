@@ -2,20 +2,14 @@ import * as Popover from '@radix-ui/react-popover';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { Cross2Icon, EnterIcon } from '@radix-ui/react-icons';
-import { useAppSelector } from 'app/hooks';
-import { selectToken } from 'features/auth/auth-slice';
-import { useFetchUserInfoQuery } from 'features/auth/auth-api';
 import Avatar from 'components/avatar';
-import UserProfile from './user-profile';
+import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
+import UserProfile from '../user-profile';
 
 export default function UserSection() {
-  const userToken = useAppSelector(selectToken);
-  const { data: userInfo } = useFetchUserInfoQuery(undefined, {
-    skip: !userToken,
-    refetchOnFocus: false,
-  });
+  const [userToken, { data: userInfo }] = useGetUserTokenAndInfo({ refetchOnFocus: false });
 
-  const isTablet = useMediaQuery({ query: '(max-width: 767px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 1023px)' });
 
   if (isTablet) {
     return (

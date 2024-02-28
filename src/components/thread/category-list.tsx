@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { useFetchThreadsQuery } from 'features/thread/thread-api';
+import Skeleton from 'components/ui/skeleton';
 
 function CategoryLink({
   label,
@@ -14,7 +15,7 @@ function CategoryLink({
 }) {
   return (
     <Link
-      className={`text-sm px-4 py-2 font-semibold rounded-md  ${isSelected ? 'text-emerald-200 bg-emerald-950 hover:bg-emerald-900' : 'bg-zinc-900 hover:bg-zinc-800'} transition-all`}
+      className={`text-sm px-4 py-2 text-nowrap font-semibold rounded-md  ${isSelected ? 'text-emerald-200 bg-emerald-950 hover:bg-emerald-900' : 'bg-zinc-900 hover:bg-zinc-800'} transition-all`}
       to={to}
     >
       {label}
@@ -36,10 +37,10 @@ export default function CategoryList() {
         {Array(3)
           .fill(null)
           .map((_, i) => (
-            <div
+            <Skeleton
               // eslint-disable-next-line react/no-array-index-key
               key={`${i}-categories-skeleton`}
-              className="h-10 w-28 rounded-md bg-zinc-900 animate-pulse"
+              className="h-8 w-28"
             />
           ))}
       </div>

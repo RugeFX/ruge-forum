@@ -7,6 +7,7 @@ import Avatar from 'components/avatar';
 import { logout } from 'features/auth/auth-slice';
 import type { User } from 'types/user';
 import { useFetchLeaderboardsQuery } from 'features/leaderboard/leaderboard-api';
+import Skeleton from 'components/ui/skeleton';
 
 interface UserProfileProps {
   user?: User;
@@ -31,14 +32,14 @@ export default function UserProfile({ user }: UserProfileProps) {
       <div className="flex gap-4 items-center justify-start">
         <Avatar user={user} />
         {user ? (
-          <div className="space-y-0">
+          <div className="space-y-0 leading-tight">
             <h2 className="text-base leading-tight font-semibold">{user.name}</h2>
             <span className="text-sm leading-tight text-zinc-300">{user.id}</span>
           </div>
         ) : (
           <div className="w-full space-y-2">
-            <div className="w-full h-2 bg-zinc-900 animate-pulse" />
-            <div className="w-full h-5 bg-zinc-900 animate-pulse" />
+            <Skeleton className="w-full h-2" />
+            <Skeleton className="w-full h-5" />
           </div>
         )}
       </div>
