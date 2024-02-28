@@ -1,5 +1,6 @@
 import { useAppSelector } from 'app/hooks';
 import Avatar from 'components/avatar';
+import Skeleton from 'components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -19,7 +20,7 @@ export default function LeaderboardPage() {
     skip: !userToken,
     refetchOnFocus: false,
   });
-  const { data: leaderboard } = useFetchLeaderboardsQuery();
+  const { data: leaderboard, isLoading } = useFetchLeaderboardsQuery();
 
   return (
     <section className="mb-4 px-5 py-2 w-full">
@@ -39,21 +40,41 @@ export default function LeaderboardPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {leaderboard?.leaderboards.map((value, i) => (
-              <TableRow key={value.user.id}>
-                <TableCell className="font-medium text-center">{i + 1}</TableCell>
-                <TableCell className="flex gap-4">
-                  <Avatar className="shrink-0 size-5" user={value.user} />
-                  <span>
-                    {value.user.name}
-                    <i className="italic pl-2">
-                      {userInfo?.user.name === value.user.name && '(You)'}
-                    </i>
-                  </span>
-                </TableCell>
-                <TableCell className="text-right">{value.score}</TableCell>
-              </TableRow>
-            ))}
+            {isLoading ? (
+              <>
+                <TableRow className="hover:bg-inherit">
+                  <TableCell colSpan={3}>
+                    <Skeleton className="w-full h-5 bg-zinc-800" />
+                  </TableCell>
+                </TableRow>
+                <TableRow className="hover:bg-inherit">
+                  <TableCell colSpan={3}>
+                    <Skeleton className="w-full h-5 bg-zinc-800" />
+                  </TableCell>
+                </TableRow>
+                <TableRow className="hover:bg-inherit">
+                  <TableCell colSpan={3}>
+                    <Skeleton className="w-full h-5 bg-zinc-800" />
+                  </TableCell>
+                </TableRow>
+              </>
+            ) : (
+              leaderboard?.leaderboards.map((value, i) => (
+                <TableRow key={value.user.id}>
+                  <TableCell className="font-medium text-center">{i + 1}</TableCell>
+                  <TableCell className="flex gap-4">
+                    <Avatar className="shrink-0 size-5" user={value.user} />
+                    <span>
+                      {value.user.name}
+                      <i className="italic pl-2">
+                        {userInfo?.user.name === value.user.name && '(You)'}
+                      </i>
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right">{value.score}</TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
