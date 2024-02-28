@@ -28,7 +28,13 @@ const serializeToTrimmedString = (nodes: Descendant[]) => nodes
   .trim();
 
 export default function CreateThreadPage() {
-  const [editorBody, setEditorBody] = useState<Descendant[]>([]);
+  const [editorBody, setEditorBody] = useState<Descendant[]>([
+    {
+      type: 'heading-two',
+      align: 'left',
+      children: [{ text: 'Hello World!' }],
+    },
+  ]);
 
   const navigate = useNavigate();
   const [create] = useCreateThreadMutation();
