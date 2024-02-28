@@ -1,11 +1,9 @@
 import parse from 'html-react-parser';
 import Avatar from 'components/avatar';
 import { useFetchThreadDetailsQuery } from 'features/thread/thread-api';
-import { useFetchUserInfoQuery } from 'features/auth/auth-api';
 import { formatDiff } from 'utils';
-import { useAppSelector } from 'app/hooks';
-import { selectToken } from 'features/auth/auth-slice';
 import { Link } from 'react-router-dom';
+import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
 import CommentInput from './comment-input';
 import CommentVote from './comment-vote';
 
@@ -14,11 +12,8 @@ interface CommentSectionProps {
 }
 
 export default function CommentSection({ threadId }: CommentSectionProps) {
-  const userToken = useAppSelector(selectToken);
+  const [, { data: userInfo, isLoading }] = useGetUserTokenAndInfo();
   const { data } = useFetchThreadDetailsQuery(threadId);
-  const { data: userInfo, isLoading: loadingUser } = useFetchUserInfoQuery(undefined, {
-    skip: !userToken,
-  });
 
   if (!data) return null;
 
@@ -29,7 +24,7 @@ export default function CommentSection({ threadId }: CommentSectionProps) {
       id="comments"
       className="w-full bg-zinc-900 border border-zinc-700 divide-y divide-zinc-700"
     >
-      {!loadingUser && !userInfo ? (
+      {!isLoading && !userInfo ? (
         <div className="w-full space-y-2 p-3">
           <h2 className="text-base text-center font-semibold">Login to post a comment!</h2>
           <Link
