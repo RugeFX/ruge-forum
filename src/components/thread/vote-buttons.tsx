@@ -30,7 +30,7 @@ export default function VoteButtons({ id }: VoteButtonProps) {
     [thread, userInfo],
   );
 
-  const upVoteHandler = async () => {
+  const voteHandler = async (type: 'up' | 'down') => {
     if (!userToken) {
       toast.info('You must be logged in to do this action!');
       navigate('/login');
@@ -42,10 +42,17 @@ export default function VoteButtons({ id }: VoteButtonProps) {
         threadApi.util.updateQueryData('fetchThreads', undefined, (draft) => {
           const draftThread = draft.threads.find((trd) => trd.id === id);
           if (draftThread) {
-            draftThread.upVotesBy = alreadyUpVoted
-              ? draftThread.upVotesBy.filter((usrId) => usrId !== userId)
-              : [...draftThread.upVotesBy, userId];
-            draftThread.downVotesBy = draftThread.downVotesBy.filter((usrId) => usrId !== userId);
+            if (type === 'up') {
+              draftThread.upVotesBy = alreadyUpVoted
+                ? draftThread.upVotesBy.filter((usrId) => usrId !== userId)
+                : [...draftThread.upVotesBy, userId];
+              draftThread.downVotesBy = draftThread.downVotesBy.filter((usrId) => usrId !== userId);
+            } else {
+              draftThread.downVotesBy = alreadyDownVoted
+                ? draftThread.downVotesBy.filter((usrId) => usrId !== userId)
+                : [...draftThread.downVotesBy, userId];
+              draftThread.upVotesBy = draftThread.upVotesBy.filter((usrId) => usrId !== userId);
+            }
           }
         }),
       );
@@ -53,38 +60,10 @@ export default function VoteButtons({ id }: VoteButtonProps) {
       try {
         await vote({
           threadId: id,
-          type: alreadyUpVoted ? 'neutral' : 'up',
-        }).unwrap();
-      } catch (err) {
-        patchCollection.undo();
-      }
-    }
-  };
-
-  const downVoteHandler = async () => {
-    if (!userToken) {
-      toast.info('You must be logged in to do this action!');
-      navigate('/login');
-    }
-    if (userInfo && thread) {
-      const userId = userInfo.user.id;
-
-      const patchCollection = dispatch(
-        threadApi.util.updateQueryData('fetchThreads', undefined, (draft) => {
-          const draftThread = draft.threads.find((trd) => trd.id === id);
-          if (draftThread) {
-            draftThread.downVotesBy = alreadyDownVoted
-              ? draftThread.downVotesBy.filter((usrId) => usrId !== userId)
-              : [...draftThread.downVotesBy, userId];
-            draftThread.upVotesBy = draftThread.upVotesBy.filter((usrId) => usrId !== userId);
-          }
-        }),
-      );
-
-      try {
-        await vote({
-          threadId: id,
-          type: alreadyDownVoted ? 'neutral' : 'down',
+          type:
+            (type === 'up' && !alreadyUpVoted) || (type === 'down' && !alreadyDownVoted)
+              ? type
+              : 'neutral',
         }).unwrap();
       } catch (err) {
         patchCollection.undo();
@@ -96,7 +75,7 @@ export default function VoteButtons({ id }: VoteButtonProps) {
     <div className="w-max flex flex-col items-center">
       <button
         type="button"
-        onClick={upVoteHandler}
+        onClick={() => voteHandler('up')}
         className={`group p-1 ${alreadyUpVoted ? 'bg-emerald-400 text-zinc-900' : 'bg-transparent hover:bg-zinc-800'} rounded-full`}
       >
         <span className="sr-only">Upvote</span>
@@ -112,7 +91,7 @@ export default function VoteButtons({ id }: VoteButtonProps) {
 
       <button
         type="button"
-        onClick={downVoteHandler}
+        onClick={() => voteHandler('down')}
         className={`group p-1 ${alreadyDownVoted ? 'bg-red-400 text-zinc-900' : 'bg-transparent hover:bg-zinc-800'} rounded-full`}
       >
         <span className="sr-only">Downvote</span>
