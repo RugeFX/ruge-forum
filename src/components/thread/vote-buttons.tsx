@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-import AnimatedNumbers from 'react-animated-numbers';
 import { ThickArrowDownIcon, ThickArrowUpIcon } from '@radix-ui/react-icons';
 import { useAppDispatch } from 'app/hooks';
 import threadApi, { useFetchThreadsQuery, useVoteThreadMutation } from 'features/thread/thread-api';
@@ -106,10 +105,9 @@ export default function VoteButtons({ id }: VoteButtonProps) {
         />
       </button>
       {thread !== undefined && (
-        <div className="flex items-center justify-center">
-          {thread.upVotesBy.length - thread.downVotesBy.length < 0 && <span>-</span>}
-          <AnimatedNumbers animateToNumber={thread.upVotesBy.length - thread.downVotesBy.length} />
-        </div>
+        <span className="text-center font-semibold">
+          {thread.upVotesBy.length - thread.downVotesBy.length}
+        </span>
       )}
 
       <button
