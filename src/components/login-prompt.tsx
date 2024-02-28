@@ -18,7 +18,7 @@ export default function LoginPrompt() {
   if (userToken || promptDismissed) return null;
 
   return (
-    <div className="sticky bottom-0 p-3 w-full bg-zinc-900 grid place-items-center gap-4">
+    <div className="sticky bottom-14 sm:bottom-0 p-3 w-full bg-zinc-900 grid place-items-center gap-4">
       <button
         type="button"
         onClick={onDismissPrompt}

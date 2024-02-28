@@ -1,6 +1,7 @@
 import { useFetchThreadsQuery } from 'features/thread/thread-api';
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import Skeleton from 'components/ui/skeleton';
 import ThreadItem from './thread-item';
 
 export default function ThreadsList() {
@@ -22,7 +23,7 @@ export default function ThreadsList() {
           .fill(null)
           .map((_, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <div key={`${i}-list-skeleton`} className="bg-zinc-900 w-full h-44 animate-pulse" />
+            <Skeleton key={`${i}-list-skeleton`} className="w-full h-44" />
           ))}
       </div>
     );

@@ -1,21 +1,19 @@
-import { ThickArrowDownIcon, ThickArrowUpIcon } from '@radix-ui/react-icons';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { useFetchUserInfoQuery } from 'features/auth/auth-api';
-import { selectToken } from 'features/auth/auth-slice';
-import threadApi, { useFetchThreadsQuery, useVoteThreadMutation } from 'features/thread/thread-api';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import AnimatedNumbers from 'react-animated-numbers';
+import { ThickArrowDownIcon, ThickArrowUpIcon } from '@radix-ui/react-icons';
+import { useAppDispatch } from 'app/hooks';
+import threadApi, { useFetchThreadsQuery, useVoteThreadMutation } from 'features/thread/thread-api';
 import type { Thread } from 'types/thread';
+import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
 
 interface VoteButtonProps extends Pick<Thread, 'id'> {}
 
 export default function VoteButtons({ id }: VoteButtonProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userToken = useAppSelector(selectToken);
-  const { data: userInfo } = useFetchUserInfoQuery(undefined, {
-    skip: !userToken,
+  const [userToken, { data: userInfo }] = useGetUserTokenAndInfo({
     refetchOnFocus: false,
     refetchOnMountOrArgChange: false,
   });
@@ -108,9 +106,10 @@ export default function VoteButtons({ id }: VoteButtonProps) {
         />
       </button>
       {thread !== undefined && (
-        <span className="text-center font-semibold">
-          {thread.upVotesBy.length - thread.downVotesBy.length}
-        </span>
+        <div className="flex items-center justify-center">
+          {thread.upVotesBy.length - thread.downVotesBy.length < 0 && <span>-</span>}
+          <AnimatedNumbers animateToNumber={thread.upVotesBy.length - thread.downVotesBy.length} />
+        </div>
       )}
 
       <button
