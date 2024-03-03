@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 import { useFetchThreadDetailsQuery } from 'features/thread/thread-api';
 import type { FetchError } from 'types/error';
 import VoteButtons from 'components/thread/vote-buttons';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import DetailsHeader from 'components/thread/details-header';
 import CommentSection from 'components/thread/comment-section';
 import { formatDiff } from 'utils';

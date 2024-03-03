@@ -1,5 +1,5 @@
 import parse from 'html-react-parser';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import { useFetchThreadDetailsQuery } from 'features/thread/thread-api';
 import { formatDiff } from 'utils';
 import { Link } from 'react-router-dom';

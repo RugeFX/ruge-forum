@@ -3,7 +3,7 @@ import type { User } from 'types/user';
 import { cn } from 'utils';
 
 interface AvatarProps {
-  user?: User;
+  user?: Omit<User, 'email'>;
   className?: string;
 }
 

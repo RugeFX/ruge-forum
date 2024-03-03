@@ -1,5 +1,5 @@
 import { useAppSelector } from 'app/hooks';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import Skeleton from 'components/ui/skeleton';
 import {
   Table,

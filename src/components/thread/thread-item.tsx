@@ -4,7 +4,7 @@ import parse from 'html-react-parser';
 import { formatDiff } from 'utils';
 import { useFetchUsersQuery } from 'features/auth/auth-api';
 import type { Thread } from 'types/thread';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import { useMemo } from 'react';
 import VoteButtons from './vote-buttons';
 

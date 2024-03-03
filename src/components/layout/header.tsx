@@ -4,7 +4,7 @@ import LoadingBar from 'react-redux-loading-bar';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import Logo from 'components/logo';
 import UserProfile from './user-profile';
 

@@ -2,7 +2,7 @@ import * as Popover from '@radix-ui/react-popover';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import { Cross2Icon, EnterIcon } from '@radix-ui/react-icons';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
 import UserProfile from '../user-profile';
 

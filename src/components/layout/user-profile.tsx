@@ -3,7 +3,7 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { ExitIcon, LightningBoltIcon } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
 import { useAppDispatch } from 'app/hooks';
-import Avatar from 'components/avatar';
+import Avatar from 'components/ui/avatar';
 import { logout } from 'features/auth/auth-slice';
 import type { User } from 'types/user';
 import { useFetchLeaderboardsQuery } from 'features/leaderboard/leaderboard-api';
