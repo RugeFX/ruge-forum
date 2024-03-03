@@ -16,7 +16,7 @@ export interface Comment {
   id: string;
   content: string;
   createdAt: string;
-  owner: User;
+  owner: Omit<User, 'email'>;
   upVotesBy: string[];
   downVotesBy: string[];
 }
@@ -41,7 +41,7 @@ export interface ThreadDetails {
   body: string;
   category: string;
   createdAt: string;
-  owner: User;
+  owner: Omit<User, 'email'>;
   upVotesBy: string[];
   downVotesBy: string[];
   comments: Comment[];

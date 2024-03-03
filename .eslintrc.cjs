@@ -37,6 +37,18 @@ module.exports = {
         }
       }
     ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: [
+          "src/utils/test-utils.tsx",
+          "src/setup-tests.ts",
+          "src/mocks/**",
+          "**/*.test.ts",
+          "**/*.test.tsx"
+        ]
+      }
+    ],
     "no-param-reassign": "off"
   }
 };

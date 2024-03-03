@@ -4,13 +4,11 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import authApi from 'features/auth/auth-api';
 import authSlice from 'features/auth/auth-slice';
 import threadApi from 'features/thread/thread-api';
-import {
-  loadingBarMiddleware,
-  loadingBarReducer,
-} from 'react-redux-loading-bar';
+import leaderboardApi from 'features/leaderboard/leaderboard-api';
+import { loadingBarMiddleware, loadingBarReducer } from 'react-redux-loading-bar';
 import { listenerMiddleware } from './listener-middleware';
 
-const rootReducer = combineSlices(authSlice, authApi, threadApi, {
+const rootReducer = combineSlices(authSlice, authApi, threadApi, leaderboardApi, {
   loadingBar: loadingBarReducer,
 });
 
@@ -22,6 +20,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
       authApi.middleware,
       threadApi.middleware,
+      leaderboardApi.middleware,
       listenerMiddleware.middleware,
       loadingBarMiddleware({
         promiseTypeSuffixes: ['pending', 'fulfilled', 'rejected'],

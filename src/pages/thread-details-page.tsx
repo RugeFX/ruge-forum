@@ -7,6 +7,7 @@ import Avatar from 'components/avatar';
 import DetailsHeader from 'components/thread/details-header';
 import CommentSection from 'components/thread/comment-section';
 import { formatDiff } from 'utils';
+import Skeleton from 'components/ui/skeleton';
 
 export default function ThreadDetailsPage() {
   const { threadId } = useParams();
@@ -20,10 +21,10 @@ export default function ThreadDetailsPage() {
     return (
       <div className="w-full px-5 py-2 space-y-4 animate-pulse">
         <div className="w-full py-4 border-b border-zinc-700">
-          <div className="w-52 h-10 bg-zinc-900 rounded-md" />
+          <Skeleton className="w-52 h-10" />
         </div>
-        <div className="w-full h-96 bg-zinc-800 rounded-md" />
-        <div className="w-full h-40 bg-zinc-900 rounded-md" />
+        <Skeleton className="w-full h-96" />
+        <Skeleton className="w-full h-40" />
       </div>
     );
   }

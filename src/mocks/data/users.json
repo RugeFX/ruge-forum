@@ -1,0 +1,14 @@
+[
+  {
+    "id": "user-test-one",
+    "name": "Dicoding",
+    "email": "admin@dicoding.com",
+    "avatar": "https://ui-avatars.com/api/?name=Dicoding&background=random"
+  },
+  {
+    "id": "user-test-two",
+    "name": "Dimas Saputra",
+    "email": "dimas@dicoding.com",
+    "avatar": "https://ui-avatars.com/api/?name=Dimas Saputra&background=random"
+  }
+]

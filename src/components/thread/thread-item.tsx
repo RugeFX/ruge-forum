@@ -22,14 +22,14 @@ export default function ThreadItem({ thread }: ThreadItemProps) {
   return (
     <article
       key={thread.id}
-      className="bg-zinc-900 border border-zinc-700 divide-y divide-zinc-700 hover:border-emerald-400 transition-colors"
+      className="w-full bg-zinc-900 border border-zinc-700 divide-y divide-zinc-700 hover:border-emerald-400 transition-colors"
     >
-      <div className="flex w-full p-3">
+      <div className=" w-full flex gap-5 p-3">
         <div className="flex flex-col items-center">
           <Avatar className="mb-2" user={owner} />
           <VoteButtons id={thread.id} />
         </div>
-        <div className="ml-5 space-y-2">
+        <div className="w-full space-y-2">
           <div className="flex flex-col sm:flex-row gap-x-4 sm:items-center text-sm">
             <span className="block text-zinc-300">{owner?.name}</span>
             <span className="block w-max px-2 text-emerald-200 bg-emerald-950 hover:bg-emerald-900 rounded-md select-none transition-colors">
@@ -43,7 +43,9 @@ export default function ThreadItem({ thread }: ThreadItemProps) {
           >
             <h3 className="text-lg font-bold">{thread.title}</h3>
           </Link>
-          <div className="line-clamp-5 leading-snug prose prose-invert">{parse(thread.body)}</div>
+          <div className="w-full line-clamp-5 leading-snug break-words prose prose-invert">
+            {parse(thread.body)}
+          </div>
         </div>
       </div>
       <div className="w-full flex justify-between items-center">

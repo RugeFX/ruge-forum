@@ -11,7 +11,7 @@ export default function Avatar({ user, className }: AvatarProps) {
   return (
     <RadixAvatar.Root
       className={cn(
-        'bg-zinc-800 inline-flex size-10 select-none items-center justify-center overflow-hidden rounded-full align-middle',
+        'text-white bg-zinc-800 inline-flex size-10 select-none items-center justify-center overflow-hidden rounded-full align-middle',
         className,
       )}
     >
@@ -21,7 +21,7 @@ export default function Avatar({ user, className }: AvatarProps) {
         alt={`${user?.name}'s Profile Picture`}
       />
       <RadixAvatar.Fallback
-        className="text-black leading-none flex h-full w-full items-center justify-center bg-zinc-800 text-[15px] font-medium"
+        className="leading-none flex h-full w-full items-center justify-center bg-zinc-800 text-[15px]"
         delayMs={600}
       >
         {user?.name

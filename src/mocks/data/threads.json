@@ -1,0 +1,24 @@
+[
+  {
+    "id": "thread-test-one",
+    "title": "Bagaimana pengalamanmu belajar Redux?",
+    "body": "Coba ceritakan dong, gimana pengalaman kalian belajar Redux di Dicoding?",
+    "category": "redux",
+    "createdAt": "2023-05-29T07:55:52.266Z",
+    "ownerId": "user-test-one",
+    "totalComments": 0,
+    "upVotesBy": [],
+    "downVotesBy": []
+  },
+  {
+    "id": "thread-test-two",
+    "title": "Bagaimana pengalamanmu belajar Redux?",
+    "body": "Coba ceritakan dong, gimana pengalaman kalian belajar Redux di Dicoding?",
+    "category": "redux",
+    "createdAt": "2023-05-29T07:55:52.266Z",
+    "ownerId": "user-test-two",
+    "totalComments": 0,
+    "upVotesBy": [],
+    "downVotesBy": []
+  }
+]

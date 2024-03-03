@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { ThickArrowDownIcon, ThickArrowUpIcon } from '@radix-ui/react-icons';
-import { useAppDispatch } from 'app/hooks';
-import threadApi, { useFetchThreadsQuery, useVoteThreadMutation } from 'features/thread/thread-api';
+import { useFetchThreadsQuery, useVoteThreadMutation } from 'features/thread/thread-api';
 import type { Thread } from 'types/thread';
 import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
 
@@ -11,7 +10,6 @@ interface VoteButtonProps extends Pick<Thread, 'id'> {}
 
 export default function VoteButtons({ id }: VoteButtonProps) {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [userToken, { data: userInfo }] = useGetUserTokenAndInfo({
     refetchOnFocus: false,
     refetchOnMountOrArgChange: false,
@@ -38,36 +36,15 @@ export default function VoteButtons({ id }: VoteButtonProps) {
     if (userInfo && thread) {
       const userId = userInfo.user.id;
 
-      const patchCollection = dispatch(
-        threadApi.util.updateQueryData('fetchThreads', undefined, (draft) => {
-          const draftThread = draft.threads.find((trd) => trd.id === id);
-          if (draftThread) {
-            if (type === 'up') {
-              draftThread.upVotesBy = alreadyUpVoted
-                ? draftThread.upVotesBy.filter((usrId) => usrId !== userId)
-                : [...draftThread.upVotesBy, userId];
-              draftThread.downVotesBy = draftThread.downVotesBy.filter((usrId) => usrId !== userId);
-            } else {
-              draftThread.downVotesBy = alreadyDownVoted
-                ? draftThread.downVotesBy.filter((usrId) => usrId !== userId)
-                : [...draftThread.downVotesBy, userId];
-              draftThread.upVotesBy = draftThread.upVotesBy.filter((usrId) => usrId !== userId);
-            }
-          }
-        }),
-      );
-
-      try {
-        await vote({
-          threadId: id,
-          type:
-            (type === 'up' && !alreadyUpVoted) || (type === 'down' && !alreadyDownVoted)
-              ? type
-              : 'neutral',
-        }).unwrap();
-      } catch (err) {
-        patchCollection.undo();
-      }
+      // Moved optimistic updates to the endpoint definition
+      await vote({
+        threadId: id,
+        userId,
+        type:
+          (type === 'up' && !alreadyUpVoted) || (type === 'down' && !alreadyDownVoted)
+            ? type
+            : 'neutral',
+      });
     }
   };
 

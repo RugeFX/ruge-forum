@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CaretDownIcon, CaretUpIcon } from '@radix-ui/react-icons';
 import { toast } from 'sonner';
-import { useAppDispatch } from 'app/hooks';
 import type { Comment } from 'types/thread';
-import threadApi, { useVoteCommentMutation } from 'features/thread/thread-api';
+import { useVoteCommentMutation } from 'features/thread/thread-api';
 import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
 
 interface CommentVoteProps {
@@ -14,7 +13,6 @@ interface CommentVoteProps {
 
 export default function CommentVote({ threadId, comment }: CommentVoteProps) {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [userToken, { data: userInfo }] = useGetUserTokenAndInfo();
   const [vote] = useVoteCommentMutation();
 
@@ -35,37 +33,16 @@ export default function CommentVote({ threadId, comment }: CommentVoteProps) {
     if (userInfo) {
       const userId = userInfo.user.id;
 
-      const patchCollection = dispatch(
-        threadApi.util.updateQueryData('fetchThreadDetails', threadId, (draft) => {
-          const findComment = draft.detailThread.comments.find((cmnt) => cmnt.id === comment.id);
-          if (findComment) {
-            if (type === 'up') {
-              findComment.upVotesBy = alreadyUpVoted
-                ? findComment.upVotesBy.filter((usrId) => usrId !== userId)
-                : [...findComment.upVotesBy, userId];
-              findComment.downVotesBy = findComment.downVotesBy.filter((usrId) => usrId !== userId);
-            } else {
-              findComment.downVotesBy = alreadyDownVoted
-                ? findComment.downVotesBy.filter((usrId) => usrId !== userId)
-                : [...findComment.downVotesBy, userId];
-              findComment.upVotesBy = findComment.upVotesBy.filter((usrId) => usrId !== userId);
-            }
-          }
-        }),
-      );
-
-      try {
-        await vote({
-          threadId,
-          commentId: comment.id,
-          type:
-            (type === 'up' && !alreadyUpVoted) || (type === 'down' && !alreadyDownVoted)
-              ? type
-              : 'neutral',
-        }).unwrap();
-      } catch (err) {
-        patchCollection.undo();
-      }
+      // Moved optimistic updates to the endpoint definition
+      await vote({
+        threadId,
+        userId,
+        commentId: comment.id,
+        type:
+          (type === 'up' && !alreadyUpVoted) || (type === 'down' && !alreadyDownVoted)
+            ? type
+            : 'neutral',
+      });
     }
   };
 
