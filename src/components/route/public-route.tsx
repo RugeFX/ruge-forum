@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAppSelector } from 'app/hooks';
 import { selectToken } from 'features/auth/auth-slice';
 
-export default function ProtectedRoute({ children }: PropsWithChildren) {
+export default function PublicRoute({ children }: PropsWithChildren) {
   const userToken = useAppSelector(selectToken);
 
   if (userToken) {

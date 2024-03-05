@@ -1,8 +1,5 @@
-import { useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
-import { useFetchThreadsQuery } from 'features/thread/thread-api';
-import Skeleton from 'components/ui/skeleton';
 
 function CategoryLink({
   label,
@@ -23,37 +20,19 @@ function CategoryLink({
   );
 }
 
-export default function CategoryList() {
-  const [searchParams] = useSearchParams();
-  const { data: threads, isLoading } = useFetchThreadsQuery();
-  const categories = useMemo(
-    () => [...new Set(threads?.threads.map((thread) => thread.category))],
-    [threads],
-  );
+interface CategoryListProps {
+  categories: string[];
+  activeCategory?: string | null;
+}
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-14 px-5 py-2 flex gap-2">
-        {Array(3)
-          .fill(null)
-          .map((_, i) => (
-            <Skeleton
-              // eslint-disable-next-line react/no-array-index-key
-              key={`${i}-categories-skeleton`}
-              className="h-8 w-28"
-            />
-          ))}
-      </div>
-    );
-  }
-
+export default function CategoryList({ categories, activeCategory }: CategoryListProps) {
   return (
     <ScrollArea.Root className="w-full h-14 px-5 py-2 overflow-hidden">
       <ScrollArea.Viewport className="w-full">
-        <div className="h-full flex gap-2">
-          <CategoryLink to="/" isSelected={!searchParams.get('category')} label="All" />
+        <div role="list" className="h-full flex gap-2">
+          <CategoryLink to="/" isSelected={!activeCategory} label="All" />
           {categories.map((category) => {
-            const isSelected = searchParams.get('category') === category;
+            const isSelected = activeCategory === category;
             return (
               <CategoryLink
                 key={category}

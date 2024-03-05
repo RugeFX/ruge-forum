@@ -13,17 +13,17 @@ import Input from 'components/ui/input';
 import ErrorMessage from 'components/ui/error-message';
 import { FetchError } from 'types/error';
 
-const loginSchema = object({
+const signupSchema = object({
   name: string([minLength(3, 'Password must have a minimum of 3 characters!')]),
   email: string([email('Please provide a valid email!')]),
   password: string([minLength(6, 'Password must have a minimum of 6 characters!')]),
 });
 
-type FormValues = Output<typeof loginSchema>;
+type FormValues = Output<typeof signupSchema>;
 
 export default function SignUpModal() {
   const navigate = useNavigate();
-  const [mutateRegister] = useRegisterMutation();
+  const [signup] = useRegisterMutation();
 
   const onOpenChange = (open: boolean) => {
     if (!open) navigate('/');
@@ -34,11 +34,11 @@ export default function SignUpModal() {
     handleSubmit,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm<FormValues>({ resolver: valibotResolver(loginSchema) });
+  } = useForm<FormValues>({ resolver: valibotResolver(signupSchema) });
 
   const onRegister: SubmitHandler<FormValues> = async (data) => {
     try {
-      await mutateRegister(data).unwrap();
+      await signup(data).unwrap();
       toast.success('Successfully registered your account!', {
         description: 'Please log-in to your new account.',
       });

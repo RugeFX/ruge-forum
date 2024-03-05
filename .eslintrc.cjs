@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, "cypress/globals": true },
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
@@ -14,7 +14,7 @@ module.exports = {
     project: "./tsconfig.json",
     tsconfigRootDir: __dirname
   },
-  plugins: ["react-refresh", "@typescript-eslint"],
+  plugins: ["react-refresh", "@typescript-eslint", "cypress"],
   rules: {
     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/react-in-jsx-scope": "off",
