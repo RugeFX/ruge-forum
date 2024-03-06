@@ -1,6 +1,6 @@
 describe("Login spec", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:5173/login");
+    cy.visit("/login");
   });
 
   it("should display login page correctly", () => {
@@ -48,6 +48,7 @@ describe("Login spec", () => {
       .contains(/^Login$/)
       .click();
 
+    cy.url().should("not.include", "login");
     cy.get("div[role=modal]").should("not.exist");
     cy.get("header")
       .contains(/^RUGE$/)
