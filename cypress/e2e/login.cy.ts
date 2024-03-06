@@ -41,18 +41,9 @@ describe("Login spec", () => {
   });
 
   it("should close login modal after submitting with valid username and password", () => {
-    cy.get('input[name="email"]').type("test-ruge@email.com");
-    cy.get('input[name="password"]').type("test123");
+    const email = "test-ruge@email.com";
+    const password = "test123";
 
-    cy.get("button")
-      .contains(/^Login$/)
-      .click();
-
-    cy.url().should("not.include", "login");
-    cy.get("div[role=modal]").should("not.exist");
-    cy.get("header")
-      .contains(/^RUGE$/)
-      .should("be.visible");
-    cy.get('img[alt*="Profile Picture"]').should("be.visible");
+    cy.login(email, password);
   });
 });
