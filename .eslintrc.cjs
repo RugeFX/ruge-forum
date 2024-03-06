@@ -8,7 +8,7 @@ module.exports = {
     "airbnb-typescript",
     "plugin:import/typescript"
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs", "*.config.ts"],
+  ignorePatterns: ["dist", "cypress", ".eslintrc.cjs", "*.config.ts"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "./tsconfig.json",

@@ -22,7 +22,7 @@ const authApi = api.injectEndpoints({
         retryCondition: ({ status }) => ![400, 401, 403].includes(status as number),
       },
       onQueryStarted: (_, { queryFulfilled, dispatch }) => {
-        queryFulfilled.then(({ data }) => dispatch(setUserToken(data.token)));
+        queryFulfilled.then(({ data }) => dispatch(setUserToken(data.token))).catch(() => {});
       },
     }),
     register: builder.mutation<UserResponse, RegisterPayload>({
