@@ -6,7 +6,7 @@ module.exports = {
     "plugin:react-hooks/recommended",
     "airbnb",
     "airbnb-typescript",
-    "plugin:import/typescript"
+    "plugin:storybook/recommended"
   ],
   ignorePatterns: ["dist", "cypress", ".eslintrc.cjs", "*.config.ts"],
   parser: "@typescript-eslint/parser",
