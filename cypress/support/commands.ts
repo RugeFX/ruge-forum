@@ -12,27 +12,37 @@
 //
 // -- This is a parent command --
 Cypress.Commands.add("login", (email, password) => {
-  cy.visit("/login");
+  cy.session(
+    email,
+    () => {
+      cy.visit("/login");
 
-  cy.get('input[name="email"]').should("be.visible");
-  cy.get('input[name="password"]').should("be.visible");
-  cy.get("button")
-    .contains(/^Login$/)
-    .should("be.visible");
+      cy.get('input[name="email"]').should("be.visible");
+      cy.get('input[name="password"]').should("be.visible");
+      cy.get("button")
+        .contains(/^Login$/)
+        .should("be.visible");
 
-  cy.get('input[name="email"]').type(email);
-  cy.get('input[name="password"]').type(password);
+      cy.get('input[name="email"]').type(email);
+      cy.get('input[name="password"]').type(password);
 
-  cy.get("button")
-    .contains(/^Login$/)
-    .click();
+      cy.get("button")
+        .contains(/^Login$/)
+        .click();
 
-  cy.url().should("not.include", "login");
-  cy.get("div[role=modal]").should("not.exist");
-  cy.get("header")
-    .contains(/^RUGE$/)
-    .should("be.visible");
-  cy.get('img[alt*="Profile Picture"]').should("be.visible");
+      cy.url().should("not.include", "login");
+      cy.get("div[role=modal]").should("not.exist");
+      cy.get("header")
+        .contains(/^RUGE$/)
+        .should("be.visible");
+      cy.get('img[alt*="Profile Picture"]').should("be.visible");
+    },
+    {
+      validate: () => {
+        expect(localStorage.getItem("user-token")).to.not.be.null;
+      }
+    }
+  );
 });
 //
 //
