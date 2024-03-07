@@ -10,6 +10,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "src/setup-tests.ts",
     include: ["src/**/__tests__/*"],
+    pool: "forks",
     mockReset: true
   }
 });
