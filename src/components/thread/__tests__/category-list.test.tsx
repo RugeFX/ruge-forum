@@ -1,4 +1,3 @@
-/* eslint-disable no-constructor-return */
 import {
   describe, it, expect, afterEach,
 } from 'vitest';
