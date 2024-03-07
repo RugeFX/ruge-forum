@@ -284,7 +284,7 @@ export default function BodyEditor({ onValueChange }: BodyEditorProps) {
 
   return (
     <Slate editor={editor} initialValue={initialValue} onChange={(value) => onValueChange(value)}>
-      <div className="ring-0 ring-emerald-400 focus-within:ring-2 border border-zinc-700 transition-all">
+      <div className="bg-zinc-900 ring-0 ring-emerald-400 focus-within:ring-2 border border-zinc-700 transition-all">
         <Toolbar>
           <MarkButton format="bold" Icon={FontBoldIcon} />
           <MarkButton format="italic" Icon={FontItalicIcon} />

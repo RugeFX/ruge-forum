@@ -8,6 +8,8 @@ import { logout } from 'features/auth/auth-slice';
 import type { User } from 'types/user';
 import { useFetchLeaderboardsQuery } from 'features/leaderboard/leaderboard-api';
 import Skeleton from 'components/ui/skeleton';
+import { buttonVariants } from 'components/ui/button';
+import { cn } from 'utils';
 
 interface UserProfileProps {
   user?: User;
@@ -49,14 +51,11 @@ export default function UserProfile({ user }: UserProfileProps) {
           {userScore ?? 0}
         </span>
         <AlertDialog.Root>
-          <AlertDialog.Trigger asChild>
-            <button
-              type="button"
-              className="font-semibold flex justify-center items-center gap-4 p-2 text-red-300 bg-red-950/70 hover:bg-red-950/90 border border-red-900 rounded-md transition-colors"
-            >
-              <span className="sr-only">Logout</span>
-              <ExitIcon className="size-5" />
-            </button>
+          <AlertDialog.Trigger
+            className={cn(buttonVariants({ variant: 'destructive' }), 'p-2 border border-red-900')}
+          >
+            <span className="sr-only">Logout</span>
+            <ExitIcon className="size-5" />
           </AlertDialog.Trigger>
           <AlertDialog.Portal>
             <AlertDialog.Overlay className="bg-black/50 fixed inset-0" />
@@ -68,22 +67,16 @@ export default function UserProfile({ user }: UserProfileProps) {
                 Are you sure you want to log out?
               </AlertDialog.Description>
               <div className="flex justify-center gap-6 pt-4 border-t border-zinc-700">
-                <AlertDialog.Cancel asChild>
-                  <button
-                    type="button"
-                    className="text-white bg-zinc-800 hover:bg-zinc-700 focus:shadow-mauve7 inline-flex h-[35px] items-center justify-center px-[15px] font-medium leading-none outline-none rounded-md"
-                  >
-                    Cancel
-                  </button>
+                <AlertDialog.Cancel
+                  className={cn(buttonVariants({ variant: 'ghost' }), 'h-9 px-4')}
+                >
+                  Cancel
                 </AlertDialog.Cancel>
-                <AlertDialog.Action asChild>
-                  <button
-                    type="button"
-                    onClick={onLogout}
-                    className="text-red-300 bg-red-950/70 hover:bg-red-950/90 inline-flex h-[35px] items-center justify-center px-[15px] font-medium leading-none outline-none rounded-md"
-                  >
-                    Yes, log me out
-                  </button>
+                <AlertDialog.Action
+                  onClick={onLogout}
+                  className={cn(buttonVariants({ variant: 'destructive' }), 'h-9 px-4')}
+                >
+                  Yes, log me out
                 </AlertDialog.Action>
               </div>
             </AlertDialog.Content>

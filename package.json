@@ -24,6 +24,7 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@reduxjs/toolkit": "^2.2.1",
     "@slate-serializers/html": "^2.1.6",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "html-react-parser": "^5.1.7",
     "is-hotkey": "^0.2.0",

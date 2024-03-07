@@ -7,6 +7,7 @@ import { valibotResolver } from '@hookform/resolvers/valibot';
 import { toast } from 'sonner';
 import ErrorMessage from 'components/ui/error-message';
 import { cn } from 'utils';
+import Button from 'components/ui/button';
 
 interface CommentInputProps {
   threadId: string;
@@ -59,21 +60,22 @@ export default function CommentInput({ threadId, className }: CommentInputProps)
       <div
         className={`flex flex-wrap justify-end gap-2 overflow-hidden ${isDirty ? 'block' : 'hidden'}`}
       >
-        <button
+        <Button
+          variant="ghost"
           disabled={isSubmitting || !isDirty}
           type="button"
           onClick={() => reset()}
-          className="w-20 text-sm font-semibold flex shrink-0 justify-center items-center gap-4 py-1 sm:px-8 text-white bg-zinc-800 hover:bg-zinc-700 disabled:opacity-65 disabled:hover:bg-zinc-800 rounded-md transition-colors"
+          className="w-20 text-sm shrink-0 py-1 sm:px-8"
         >
           Cancel
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={isSubmitting || !isDirty || !isValid}
           type="submit"
-          className="w-20 text-sm font-semibold flex shrink-0 justify-center items-center gap-4 py-1 sm:px-8 text-black bg-emerald-400 hover:bg-emerald-500 disabled:opacity-65 disabled:hover:bg-emerald-400 rounded-md transition-colors"
+          className="w-20 text-sm shrink-0 py-1 sm:px-8"
         >
           Post
-        </button>
+        </Button>
       </div>
     </form>
   );

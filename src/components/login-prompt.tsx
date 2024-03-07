@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Cross1Icon } from '@radix-ui/react-icons';
 import { useAppSelector } from 'app/hooks';
 import { selectToken } from 'features/auth/auth-slice';
+import Button from './ui/button';
 
 export default function LoginPrompt() {
   const userToken = useAppSelector(selectToken);
@@ -29,19 +29,17 @@ export default function LoginPrompt() {
       </button>
       <span className="font-bold text-xl text-center">Start exploring deeper</span>
       <div className="w-full max-w-72 h-full flex flex-col sm:flex-row justify-center items-center gap-2">
-        <Link
-          to="/login"
-          className="w-full font-semibold flex shrink-0 justify-center items-center gap-4 py-2 sm:px-8 text-black bg-emerald-400 hover:bg-emerald-500 rounded-md transition-colors"
-        >
+        <Button to="/login" className="w-full shrink-0 py-2 sm:px-8">
           Login
-        </Link>
+        </Button>
         <span className="font-semibold">or</span>
-        <Link
+        <Button
+          variant="ghost"
           to="/sign-up"
-          className="w-full font-semibold flex shrink-0 justify-center items-center gap-4 py-2 sm:px-8 text-white bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors"
+          className="w-full bg-zinc-800 hover:bg-zinc-700 shrink-0 py-2 sm:px-8"
         >
           Sign Up
-        </Link>
+        </Button>
       </div>
     </div>
   );

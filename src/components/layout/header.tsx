@@ -20,10 +20,14 @@ export default function Header() {
             <Popover.Trigger asChild>
               <button
                 type="button"
-                className="absolute left-5 size-10 flex sm:hidden justify-center items-center text-emerald-200 hover:bg-emerald-950 rounded-full hover:brightness-110 transition-all"
+                className="absolute left-5 size-7 flex sm:hidden justify-center items-center text-emerald-200 hover:bg-emerald-950 rounded-full hover:brightness-110 transition-all"
               >
                 <span className="sr-only">User Info</span>
-                {userToken ? <Avatar user={userInfo?.user} /> : <EnterIcon className="size-7" />}
+                {userToken ? (
+                  <Avatar className="shrink-0" user={userInfo?.user} />
+                ) : (
+                  <EnterIcon className="size-7" />
+                )}
               </button>
             </Popover.Trigger>
             <Popover.Portal>

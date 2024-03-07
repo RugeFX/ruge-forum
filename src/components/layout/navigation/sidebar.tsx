@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { PlusIcon } from '@radix-ui/react-icons';
+import Button from 'components/ui/button';
 import UserSection from './user-section';
 import navigationItems from './data';
 
@@ -26,13 +27,10 @@ export default function Sidebar() {
         </NavLink>
       ))}
       <div className="p-2">
-        <NavLink
-          to="/new"
-          className="font-semibold flex shrink-0 justify-center items-center gap-4 py-3 lg:px-5 text-black bg-emerald-400 hover:bg-emerald-500 rounded-md transition-all"
-        >
+        <Button to="/new" className="font-semibold flex shrink-0 gap-4 py-3 lg:px-5">
           <span className="hidden lg:block">Start a Thread</span>
           <PlusIcon className="size-5" />
-        </NavLink>
+        </Button>
       </div>
     </aside>
   );
