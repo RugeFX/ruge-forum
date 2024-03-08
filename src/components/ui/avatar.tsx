@@ -19,7 +19,7 @@ export default function Avatar({ user, className }: AvatarProps) {
       <RadixAvatar.Image
         className="h-full w-full rounded-[inherit] object-cover"
         src={user?.avatar}
-        alt={`${user?.name}'s `}
+        alt={`${user?.name}'s Profile Picture`}
       />
       <RadixAvatar.Fallback
         data-testid="fallback"
