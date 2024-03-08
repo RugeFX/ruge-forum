@@ -19,8 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     user: {
-      id: 'test',
-      name: 'RugeFX',
+      name: 'Ahmad Zacky',
       avatar:
         'https://avatars.githubusercontent.com/u/99505538?s=400&u=4e0daf9a3155b60c503efeb9421c98fe868cc1ad&v=4',
     },
@@ -29,6 +28,6 @@ export const Default: Story = {
 
 export const Fallback: Story = {
   args: {
-    user: { id: 'test', name: 'RugeFX', avatar: '' },
+    user: { name: 'Ahmad Zacky', avatar: 'invalid-link' },
   },
 };

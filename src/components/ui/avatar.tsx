@@ -3,7 +3,7 @@ import type { User } from 'types/user';
 import { cn } from 'utils';
 
 interface AvatarProps {
-  user?: Omit<User, 'email'>;
+  user?: Pick<User, 'avatar' | 'name'>;
   className?: string;
 }
 

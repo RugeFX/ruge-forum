@@ -8,7 +8,7 @@ module.exports = {
     "airbnb-typescript",
     "plugin:storybook/recommended"
   ],
-  ignorePatterns: ["dist", "cypress", ".eslintrc.cjs", "*.config.ts"],
+  ignorePatterns: ["dist", "public", "cypress", "stories", ".eslintrc.cjs", "*.config.ts"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "./tsconfig.json",

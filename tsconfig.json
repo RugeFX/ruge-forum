@@ -27,6 +27,6 @@
 
     "types": ["@testing-library/jest-dom"]
   },
-  "include": ["src", "src/setup-tests.ts"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

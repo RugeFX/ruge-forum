@@ -2,24 +2,18 @@ import { ChatBubbleIcon } from '@radix-ui/react-icons';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 import { cn, formatDiff } from 'utils';
-import { useFetchUsersQuery } from 'features/auth/auth-api';
-import type { Thread } from 'types/thread';
 import Avatar from 'components/ui/avatar';
-import { useMemo } from 'react';
 import { buttonVariants } from 'components/ui/button';
+import type { Thread } from 'types/thread';
+import type { User } from 'types/user';
 import VoteButtons from './vote-buttons';
 
 interface ThreadItemProps {
   thread: Thread;
+  owner?: Omit<User, 'email'>;
 }
 
-export default function ThreadItem({ thread }: ThreadItemProps) {
-  const { data: users } = useFetchUsersQuery();
-  const owner = useMemo(
-    () => (users?.users ?? []).find((user) => user.id === thread.ownerId),
-    [users, thread],
-  );
-
+export default function ThreadItem({ thread, owner }: ThreadItemProps) {
   return (
     <article
       key={thread.id}
@@ -34,7 +28,10 @@ export default function ThreadItem({ thread }: ThreadItemProps) {
           <div className="flex flex-col sm:flex-row gap-x-2 sm:items-center text-sm">
             <span className="block text-zinc-300">{owner?.name}</span>
             <span
-              className={cn(buttonVariants({ variant: 'secondary' }), 'w-max px-2 select-none')}
+              className={cn(
+                buttonVariants({ variant: 'secondary' }),
+                'w-max py-0 px-2 select-none',
+              )}
             >
               #
               {thread.category}

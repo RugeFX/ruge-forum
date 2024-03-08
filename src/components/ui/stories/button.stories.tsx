@@ -50,13 +50,6 @@ export const Destructive: Story = {
 };
 
 export const AsLink: Story = {
-  decorators: [
-    (Story) => (
-      <MemoryRouter>
-        <Story />
-      </MemoryRouter>
-    ),
-  ],
   args: {
     variant: 'primary',
     children: 'Link Button',
