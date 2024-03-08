@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:host": "vite --host 127.0.0.1",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -13,7 +14,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook:no-open": "storybook dev -p 6006 --no-open",
-    "ci:test": "vitest --run && start-test dev 5173 e2e"
+    "ci:test": "vitest --run && start-test dev:host 5173 e2e"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
