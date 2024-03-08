@@ -14,6 +14,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { FetchError } from 'types/error';
 import DetailsHeader from 'components/thread/details-header';
+import Button from 'components/ui/button';
 
 const threadSchema = object({
   title: string([minLength(5, 'Title length must have a minimum of 5 characters!')]),
@@ -118,13 +119,9 @@ export default function CreateThreadPage() {
           <ErrorMessage message={errors.root?.body?.message} />
         </fieldset>
         <ErrorMessage message={errors.root?.message} />
-        <button
-          disabled={isSubmitting}
-          type="submit"
-          className="bg-emerald-400 text-zinc-900 hover:bg-emerald-500 disabled:bg-emerald-600 inline-flex h-9 w-full items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:outline-none"
-        >
+        <Button disabled={isSubmitting} type="submit" className="h-9 w-full">
           Create Thread
-        </button>
+        </Button>
       </form>
     </section>
   );

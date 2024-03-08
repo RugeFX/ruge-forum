@@ -1,4 +1,5 @@
 import type { Thread } from 'types/thread';
+import { useFetchUsersQuery } from 'features/auth/auth-api';
 import ThreadItem from './thread-item';
 
 interface ThreadsListProps {
@@ -6,6 +7,8 @@ interface ThreadsListProps {
 }
 
 export default function ThreadsList({ threads }: ThreadsListProps) {
+  const { data: users } = useFetchUsersQuery();
+
   if (threads.length === 0) {
     return (
       <div className="grid min-h-24 place-items-center">
@@ -18,9 +21,11 @@ export default function ThreadsList({ threads }: ThreadsListProps) {
 
   return (
     <div role="list" className="px-5 w-full grid grid-flow-row gap-2">
-      {threads.map((thread) => (
-        <ThreadItem key={thread.id} thread={thread} />
-      ))}
+      {threads.map((thread) => {
+        const owner = users?.users.find((user) => user.id === thread.ownerId);
+
+        return <ThreadItem key={thread.id} thread={thread} owner={owner} />;
+      })}
     </div>
   );
 }

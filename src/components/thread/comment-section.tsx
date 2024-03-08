@@ -2,8 +2,8 @@ import parse from 'html-react-parser';
 import Avatar from 'components/ui/avatar';
 import { useFetchThreadDetailsQuery } from 'features/thread/thread-api';
 import { formatDiff } from 'utils';
-import { Link } from 'react-router-dom';
 import useGetUserTokenAndInfo from 'hooks/use-get-user-token-and-info';
+import Button from 'components/ui/button';
 import CommentInput from './comment-input';
 import CommentVote from './comment-vote';
 
@@ -27,12 +27,9 @@ export default function CommentSection({ threadId }: CommentSectionProps) {
       {!isLoading && !userInfo ? (
         <div className="w-full space-y-2 p-3">
           <h2 className="text-base text-center font-semibold">Login to post a comment!</h2>
-          <Link
-            to="/login"
-            className="w-full font-semibold flex justify-center items-center gap-4 py-1 sm:px-8 text-black bg-emerald-400 hover:bg-emerald-500 rounded-md transition-colors"
-          >
+          <Button to="/login" className="w-full py-1 sm:px-8">
             Login
-          </Link>
+          </Button>
         </div>
       ) : (
         <div className="w-full p-3 flex gap-4 items-start">

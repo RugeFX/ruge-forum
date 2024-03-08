@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import { PlusIcon } from '@radix-ui/react-icons';
+import Button from 'components/ui/button';
 import navigationItems from './data';
 
 export default function MobileNav() {
@@ -11,13 +12,13 @@ export default function MobileNav() {
           <Fragment key={to}>
             {index === navigationItems.length / 2 && (
               <div className="grow-[3]">
-                <NavLink
+                <Button
                   to="/new"
-                  className="font-semibold w-full h-full flex shrink-0 justify-center items-center gap-4 py-3 md:px-5 text-black bg-emerald-400 hover:bg-emerald-500 transition-all rounded-md"
+                  className="font-semibold w-full h-full flex shrink-0 gap-4 py-3 md:px-5"
                 >
                   <PlusIcon className="size-7" />
                   <span className="sr-only">Start a Thread</span>
-                </NavLink>
+                </Button>
               </div>
             )}
             <NavLink

@@ -12,6 +12,7 @@ import { useLoginMutation } from 'features/auth/auth-api';
 import Input from 'components/ui/input';
 import ErrorMessage from 'components/ui/error-message';
 import { FetchError } from 'types/error';
+import Button from 'components/ui/button';
 
 const loginSchema = object({
   email: string([email('Please provide a valid email!')]),
@@ -87,13 +88,9 @@ export default function LoginModal() {
             </fieldset>
             <ErrorMessage message={errors.root?.message} />
             <div className="mt-4 pt-4 flex flex-col items-center border-t border-zinc-700">
-              <button
-                disabled={isSubmitting}
-                type="submit"
-                className="bg-emerald-400 text-zinc-900 hover:bg-emerald-500 disabled:bg-emerald-600 inline-flex h-9 w-full items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:outline-none"
-              >
+              <Button disabled={isSubmitting} type="submit" className="h-9 w-full">
                 Login
-              </button>
+              </Button>
               <span className="mt-2">
                 Don&apos;t have an account yet?
                 {' '}

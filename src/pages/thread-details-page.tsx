@@ -62,7 +62,7 @@ export default function ThreadDetailsPage() {
           </div>
           <footer className="w-full flex gap-4 items-center p-3">
             <div className="flex gap-2">
-              <Avatar user={owner} />
+              <Avatar user={owner} className="shrink-0" />
               <div className="flex flex-col">
                 <h4 className="text-sm text-zinc-300">
                   {'Posted by '}

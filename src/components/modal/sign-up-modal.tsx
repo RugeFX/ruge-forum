@@ -12,6 +12,7 @@ import Logo from 'components/logo';
 import Input from 'components/ui/input';
 import ErrorMessage from 'components/ui/error-message';
 import { FetchError } from 'types/error';
+import Button from 'components/ui/button';
 
 const signupSchema = object({
   name: string([minLength(3, 'Password must have a minimum of 3 characters!')]),
@@ -107,13 +108,14 @@ export default function SignUpModal() {
             <ErrorMessage message={errors.root?.message} />
 
             <div className="mt-4 pt-4 flex flex-col items-center border-t border-zinc-700">
-              <button
+              <Button
+                variant="secondary"
                 disabled={isSubmitting}
                 type="submit"
-                className="bg-emerald-400 text-zinc-900 hover:bg-emerald-500 inline-flex h-9 w-full items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:outline-none"
+                className="h-9 w-full border border-emerald-800"
               >
                 Sign Up
-              </button>
+              </Button>
               <span className="mt-2">
                 Already have an account?
                 {' '}
